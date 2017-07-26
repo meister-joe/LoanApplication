@@ -24,8 +24,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void doCalculate(View v)
     {
-
-
         String loanAmnt=loanAmount.getText().toString();
         String dpAmnt=downPaymentAmount.getText().toString();
 
@@ -43,5 +41,4 @@ public class MainActivity extends AppCompatActivity {
             monthlyRepay.setText(String.format(dblActualLoanAmnt.toString()));
         }
     }
-
 }
