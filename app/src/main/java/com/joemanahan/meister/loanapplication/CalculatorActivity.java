@@ -72,8 +72,6 @@ public class CalculatorActivity extends AppCompatActivity {
             Double dblDpAmnt = Double.valueOf(dpAmnt);
             Double dblInterestRate = Double.valueOf(interestRate) / 12 / 100;
             double dbNumOfMonth = (Integer.parseInt(term) * 12);
-
-
             Double dblActualLoanAmnt = dblLoanAmnt - dblDpAmnt;
 
             if (dblActualLoanAmnt < 0 || dbNumOfMonth < 1) {
