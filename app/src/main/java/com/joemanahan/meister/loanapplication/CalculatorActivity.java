@@ -12,34 +12,18 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
 
-public class MainActivity extends AppCompatActivity {
+public class CalculatorActivity extends AppCompatActivity {
     EditText loanAmount;
     EditText downPaymentAmount;
     TextView monthlyRepay;
-
-    private long delay=1000;
-
-    private TimerTask task=new TimerTask() {
-        @Override
-        public void run() {
-            startActivity(new Intent(MainActivity.this,CalculatorActivity.class));
-            finish();
-        }
-    };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        //loanAmount=(EditText) findViewById(R.id.loan_amount);
-        //downPaymentAmount=(EditText) findViewById(R.id.down_payment);
-        //monthlyRepay=(TextView) findViewById(R.id.monthly_repayment);
-        Timer timer=new Timer();
-        timer.schedule(task,delay);
-
+        setContentView(R.layout.activity_calculator);
+        loanAmount=(EditText) findViewById(R.id.loan_amount);
+        downPaymentAmount=(EditText) findViewById(R.id.down_payment);
+        monthlyRepay=(TextView) findViewById(R.id.monthly_repayment);
     }
 
     public void doCalculate(View v)
