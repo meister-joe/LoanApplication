@@ -40,8 +40,10 @@ public class CalculatorActivity extends AppCompatActivity {
         {
             case R.id.button_calculate:
                 doCalculate();
+                break;
             case R.id.button_reset:
                 reset();
+                break;
         }
     }
 
@@ -65,30 +67,36 @@ public class CalculatorActivity extends AppCompatActivity {
         String interestRate=annualInterestRate.getText().toString();
         String term=etTerm.getText().toString();
 
+        try {
+            Double dblLoanAmnt = Double.valueOf(loanAmnt);
+            Double dblDpAmnt = Double.valueOf(dpAmnt);
+            Double dblInterestRate = Double.valueOf(interestRate) / 12 / 100;
+            double dbNumOfMonth = (Integer.parseInt(term) * 12);
 
-        Double dblLoanAmnt=Double.valueOf(loanAmnt);
-        Double dblDpAmnt=Double.valueOf(dpAmnt);
-        Double dblInterestRate=Double.valueOf(interestRate)/12/100;
-        double dbNumOfMonth= (Integer.parseInt(term)*12);
 
-        Double dblActualLoanAmnt=dblLoanAmnt-dblDpAmnt;
+            Double dblActualLoanAmnt = dblLoanAmnt - dblDpAmnt;
 
-        if (dblActualLoanAmnt<0 || dbNumOfMonth<1)
-        {
-            Toast.makeText(getBaseContext(),getString(R.string.term) + " should be greater than 0 and " + getString(R.string.loan_amount) + " should be greater than " + getString(R.string.down_payment),Toast.LENGTH_LONG).show();
+            if (dblActualLoanAmnt < 0 || dbNumOfMonth < 1) {
+                Toast.makeText(getBaseContext(), getString(R.string.term) + " should be greater than 0 and " + getString(R.string.loan_amount) + " should be greater than " + getString(R.string.down_payment), Toast.LENGTH_LONG).show();
+            } else {
+                double monthlyRepayment = dblActualLoanAmnt * (dblInterestRate + (dblInterestRate / (java.lang.Math.pow((1 + dblInterestRate), dbNumOfMonth) - 1)));
+
+                double totalRepayment = monthlyRepayment * dbNumOfMonth;
+                double totalInterest = totalRepayment - dblActualLoanAmnt;
+                double monthlyInterest = totalInterest / dbNumOfMonth;
+
+                monthlyRepay.setText(String.format("%.2f", monthlyRepayment));
+                totalRepay.setText(String.format("%.2f", totalRepayment));
+                totalInter.setText(String.format("%.2f", totalInterest));
+                avgMonthlyInterest.setText(String.format("%.2f", monthlyInterest));
+            }
         }
-        else
+        catch (Exception ex)
         {
-            double monthlyRepayment=dblActualLoanAmnt * (dblInterestRate+(dblInterestRate/(java.lang.Math.pow((1+dblInterestRate),dbNumOfMonth)-1)));
+            Toast.makeText(getBaseContext(),"Please complete all fields.",Toast.LENGTH_LONG).show();
+        }finally
+        {
 
-            double totalRepayment=monthlyRepayment*dbNumOfMonth;
-            double totalInterest=totalRepayment-dblActualLoanAmnt;
-            double monthlyInterest=totalInterest/dbNumOfMonth;
-
-            monthlyRepay.setText(String.format("%.2f",monthlyRepayment));
-            totalRepay.setText(String.format("%.2f",totalRepayment));
-            totalInter.setText(String.format("%.2f",totalInterest));
-            avgMonthlyInterest.setText(String.format("%.2f",monthlyInterest));
         }
 
 //        Calendar cal=Calendar.getInstance();
