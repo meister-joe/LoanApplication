@@ -91,6 +91,8 @@ public class CalculatorActivity extends AppCompatActivity {
         }
         catch (Exception ex)
         {
+            //Snackbar sbar;
+
             Toast.makeText(getBaseContext(),"Please complete all fields.",Toast.LENGTH_LONG).show();
         }finally
         {
